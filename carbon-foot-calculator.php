@@ -54,6 +54,31 @@
    add_action('wp_enqueue_scripts', 'myPluginScripts', 999);
 
    add_shortcode('carbon-foot', 'myForm');
+
+   function questionOne(){
+        return `
+            <div class="row">
+                <div class="col-6">
+                    <img src="`.TEST_PLUGIN_URL.`public/images/1.png" width="80%">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-title">1. Cuantas personas más habitan en tu casa?</h2>
+                        </div>
+                    </div>
+                    <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
+                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
+
+                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
+
+                                            </label>
+                </div>
+            </div>
+            
+        `;
+   }
+
    function myForm($atts){
 
       ?>
@@ -79,24 +104,19 @@
        
                         <fieldset>
                             <div class="form-card">
-
+                            <div class="col-12">
                             <div class="row">
+                            
+
                                 <div class="col-6">
-                                    <img src="img/1.png" width="80%">
+                                    <img src="<?php echo TEST_PLUGIN_URL.'public/images/1.png'; ?>" width="80%">
                                 </div>
                                 <div class="col-6">
                                     <div class="row">
-                                        <div class="col-7">
-                                            <h2 class="fs-title">1. Cuantas personas habitan en tu casa?</h2>
+                                        <div class="col-12">
+                                            <h2 class="fs-title">1. Cuantas personas más habitan en tu casa?</h2>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h5>a) Adultos</h5>
-                                        </div>
-                                    </div>
-
                                     
             
                                                                                 <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
@@ -148,120 +168,11 @@
 
                                             </label>
 
-
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h5>b) Adolescentes</h5>
-                                        </div>
-                                    </div>
-
-                                                                                <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="2" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">2 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="3" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">3 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="4" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">4 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="5" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">5 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="6" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">6 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="7" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">7 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="8" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">8 <!--v-if--></div>
-
-                                            </label>
-                                    
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h5>c) Niños</h5>
-                                        </div>
-                                    </div>
-
-                                                                                <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="2" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">2 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="3" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">3 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="4" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">4 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="5" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">5 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="6" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">6 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="7" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">7 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="8" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">8 <!--v-if--></div>
-
-                                            </label>
                                 </div>
 
+                            
                             </div>
-
+                            </div>
 
 
 
