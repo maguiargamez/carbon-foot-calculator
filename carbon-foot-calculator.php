@@ -59,12 +59,47 @@
 
    add_shortcode('carbon-foot', 'myForm');
 
+   function questionsMenu($language="COL"){
+
+     $menu = [
+        "Vivienda",
+        "Servicios",
+        "Transporte",
+        "Vuelos",
+        "Alimentación",
+        "Resultados"
+     ]; 
+    if($language=="USA"){
+        $menu = [
+            "Living place",
+            "Services",
+            "Transportation",
+            "Flights",
+            "Food",
+            "Results"
+         ];        
+    }
+
+    ?> 
+
+    <ul id="progressbar">
+        <li class="active" id="house"><strong><?php echo $menu[0]; ?></strong></li>
+        <li id="receipt"><strong><?php echo $menu[1]; ?></strong></li>
+        <li id="car"><strong><?php echo $menu[2]; ?></strong></li>
+        <li id="plane"><strong><?php echo $menu[3]; ?></strong></li>
+        <li id="meat"><strong><?php echo $menu[4]; ?></strong></li>
+        <li id="confirm"><strong><?php echo $menu[5]; ?></strong></li>
+    </ul>
+
+    <?php
+   }
+
    function questionOne($language="COL"){
 
         $question= [
-            "COL" => "¿Cuantas personas más viven en tu casa?",
-            "MEX" => "¿Cuantas personas más viven en tu casa?",
-            "USA" => "How many other people live in your household?"            
+            "COL" => "1. ¿Cuantas personas más viven en tu casa?",
+            "MEX" => "1. ¿Cuantas personas más viven en tu casa?",
+            "USA" => "1. How many other people live in your household?"            
         ];
 
         ?>
@@ -75,7 +110,7 @@
                 <div class="col-6">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="fs-title">1. <?php echo $question[$language]; ?></h2>
+                            <h2 class="fs-title"><?php echo $question[$language]; ?></h2>
                         </div>
                     </div>
                     <div class="price-box">
@@ -102,10 +137,28 @@
 
    function questionTwo($language="COL"){
 
+    $money = [
+        "COL" => "$ COP",
+        "MEX" => "$ MXN",
+        "USA" => "$ USD"
+    ];
+
     $question= [
-        "COL" => "¿Cuánto pagas al mes por los servicios públicos? ($ COP)",
-        "MEX" => "¿Cuánto pagas al mes por los servicios públicos? ($ COP)",
-        "USA" => "How many other people live in your household?"            
+        "COL" => "2. Indica tu costo de cada tipo de servicio público (".$money[$language].")",
+        "MEX" => "2. Indica tu costo de cada tipo de servicio público (".$money[$language].")",
+        "USA" => "2. Enter your cost of each type of public service: "            
+    ];
+
+    $questionOne = [
+        "COL" => "Electricidad",
+        "MEX" => "Electricidad",
+        "USA" => "Electricity" 
+    ];
+
+    $questionTwo = [
+        "COL" => "Gas",
+        "MEX" => "Gas",
+        "USA" => "Gas" 
     ];
 
     ?>
@@ -116,25 +169,217 @@
             <div class="col-6">
                 <div class="row">
                     <div class="col-12">
-                        <h2 class="fs-title">2. <?php echo $question[$language]; ?></h2>
+                        <h2 class="fs-title"><?php echo $question[$language]; ?></h2>
                     </div>
                 </div>
 
-                <label class="fieldlabels">Electricidad: </label> <output id="outputElect">0</output> $ COP  <br>
+                <label class="fieldlabels"><?php echo $questionOne[$language]; ?>: </label> <output id="outputElect">0</output> <?php echo $money[$language] ?>  <br>
                
-                <input type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputElect').value = this.value">
+                <input name="questionTwoElectricity" type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputElect').value = this.value">
                     
-                <label class="fieldlabels">Gas: </label> <output id="outputGas">0</output> $ COP  <br>
+                <label class="fieldlabels"><?php echo $questionTwo[$language]; ?>: </label> <output id="outputGas">0</output> <?php echo $money[$language] ?>   <br>
                
-                <input type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputGas').value = this.value"> 
+                <input name="questionTwoGas" type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputGas').value = this.value"> 
 
                 
+            </div>
+        </div>
+    <?php
+    }
+
+    function questionThree($language="COL"){
+
+        $money = [
+            "COL" => "$ COP",
+            "MEX" => "$ MXN",
+            "USA" => "$ USD"
+        ];
+    
+        $question= [
+            "COL" => "Selecciona el medio de transporte que usas, millas recorridas y factura mensual:",
+            "MEX" => "Selecciona el medio de transporte que usas, millas recorridas y factura mensual:",
+            "USA" => "Select the means of transport you use, miles traveled and monthly bill:"            
+        ];
+
+        $questionOne = [
+            "COL" => "Factura mensual de combustible",
+            "MEX" => "Factura mensual de combustible",
+            "USA" => "Monthly fuel bill" 
+        ];
+    
+        $questionTwo = [
+            "COL" => "Millas mensuales recorridas",
+            "MEX" => "Millas mensuales recorridas",
+            "USA" => "Monthly miles traveled" 
+        ];
+
+        $transportations =[
+            "COL" => [
+                'car' => 'Auto',
+                'cab' => 'Taxi',
+                'motorcycle' => 'Motocicleta',
+                'bike' => 'Bicileta',
+                'scooter' => 'Scooter',
+                'Transporte publico' => 'Transporte publico',
+            ],
+            "MEX" => [
+                'car' => 'Auto',
+                'cab' => 'Taxi',
+                'motorcycle' => 'Motocicleta',
+                'bike' => 'Bicileta',
+                'scooter' => 'Scooter',
+                'publicTransport' => 'Transporte publico',
+            ],
+            "USA" => [
+                'car' => 'Car',
+                'cab' => 'Cab',
+                'motorcycle' => 'Motorcycle',
+                'bike' => 'Bike',
+                'scooter' => 'Scooter',
+                'publicTransport' => 'Public transport',
+            ]
+        ];
+    
+        ?>
+            <div class="row">
+                <div class="col-6">
+                    <img src="<?php echo TEST_PLUGIN_URL.'public/images/3.png'; ?>" width="80%">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-title">2. <?php echo $question[$language]; ?></h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="funkyradio">
+                                <?php                                    
+                                    foreach($transportations[$language] as $key => $transport){
+                                        ?>
+                                            <div class="funkyradio-primary">
+                                                <input type="checkbox" name="chkTransportation" id="chk<?php echo $key; ?>" />
+                                                <label for="chk<?php echo $key; ?>"><?php echo $transport; ?></label>
+                                            </div>
+                                        <?php
+                                    }
+                                ?>
+                            </div>                        
+                        </div>
+    
+                        <div class="col-8">
+                            <label class="fieldlabels"><?php echo $questionOne[$language]; ?>: </label> <output id="ThreeGas">0</output> <?php echo $money[$language] ?>  <br>
+                        
+                            <input name="questionThreeGas" type="range" value="0" min="0" max="1000" oninput="document.getElementById('ThreeGas').value = this.value">
+                                
+                            <label class="fieldlabels"><?php echo $questionTwo[$language]; ?>: </label> <output id="outputMiles">0</output> <?php echo $money[$language] ?>   <br>
+                        
+                            <input name="questionThreeMiles" type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputMiles').value = this.value"> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        <?php
+    }
+
+    function questionFour($language="COL"){
+      
+        $money = [
+            "COL" => "Vuelos",
+            "MEX" => "Vuelos",
+            "USA" => "Flights "
+        ];
+
+        $question= [
+            "COL" => "4. Cantidad de vuelos que realizas al año",
+            "MEX" => "4. Cantidad de vuelos que realizas al año",
+            "USA" => "4. Number of flights you make yearly"            
+        ];
+
+        ?>
+            <div class="row">
+                <div class="col-6">
+                    <img src="<?php echo TEST_PLUGIN_URL.'public/images/4.png'; ?>" width="80%">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="fs-title"><?php echo $question[$language]; ?></h2>
+                        </div>
+                    </div>
+
+                    <label class="fieldlabels"><?php echo $money[$language]; ?>: </label> <output id="outputFlights">0</output> <?php echo $money[$language]; ?>  <br>
+                
+                    <input name="questionFourFlights" type="range" value="0" min="0" max="500" oninput="document.getElementById('outputFlights').value = this.value">
+                    
+                </div>
+            </div>
+        <?php
+   }
+
+   function questionFive($language="COL"){
+
+    $question= [
+        "COL" => "5. ¿Cuantas veces a la semana consumes carne roja?",
+        "MEX" => "5. ¿Cuantas veces a la semana consumes carne roja?",
+        "USA" => "5. How many times a week do you eat red meat?"            
+    ];
+
+    ?>
+        <div class="row">
+            <div class="col-6">
+                <img src="<?php echo TEST_PLUGIN_URL.'public/images/5.png'; ?>" width="80%">
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="fs-title"><?php echo $question[$language]; ?></h2>
+                    </div>
+                </div>
+                <div class="price-box">
+
+                <div id="slider"></div>
+
+                </div>
+                <div class="options">                
+                    <?php
+                        for($i=1; $i<8; $i++){
+                            ?>
+                            <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">
+                                <input type="radio" class="hidden peer" name="questionFive"  data-type="int" value="<?php echo $i; ?>" data-v-05d2fc82="">
+                                <div class="flex items-center justify-between cursor-pointer square"  data-v-05d2fc82=""><?php echo $i; ?></div>
+                            </label>
+                            <?php
+                        }
+                    ?>
+                </div>                    
             </div>
         </div>
     <?php
 }
 
    function myForm($atts){
+
+    $language= $atts['language'];
+    $buttons= [
+        "COL" => [
+            'next' => "Siguiente",
+            'previous' => "Regresar",
+            'result' => "Resultados",
+        ],   
+        "MEX" => [
+            'next' => "Siguiente",
+            'previous' => "Regresar",
+            'result' => "Resultados",
+        ],         
+        "USA" => [
+            'next' => "Next",
+            'previous' => "Previous",
+            'result' => "Results",
+        ]           
+    ];
 
       ?>
 
@@ -146,287 +391,60 @@
     
                     <form id="msform" class="form-pricing">
     
-                        <ul id="progressbar">
-                            <li class="active" id="house"><strong>Vivienda</strong></li>
-                            <li id="receipt"><strong>Servicios</strong></li>
-                            <li id="car"><strong>Transporte</strong></li>
-                            <li id="plane"><strong>Vuelos</strong></li>
-                            <li id="meat"><strong>Alimentación</strong></li>
-                            <li id="confirm"><strong>Resultado</strong></li>
-                        </ul>
-
-
+                        <?php questionsMenu($language); ?>
        
                         <fieldset>
+                            <?php questionOne($language); ?>
                             <div class="form-card">
                                 <div class="col-12">
-                                    <?php questionOne(); ?>
+                                    
                                 </div>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Siguiente"/>
+                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['next']; ?>"/>
                         </fieldset>
 
                         <fieldset>
                             <div class="form-card">
                                 <div class="col-12">
-                                    <?php questionTwo(); ?>
+                                    <?php questionTwo($language); ?>
                                 </div>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Siguiente"/>
-                            <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
+                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['next']; ?>"/>
+                            <input type="button" name="previous" class="previous action-button-previous" value="<?php echo $buttons[$language]['previous']; ?>"/>
                         </fieldset> 
 
                     
-
-
-
                         <fieldset>
                             <div class="form-card">
-
-
-
-                            <div class="row">
-                                    <div class="col-6">
-                                        <img src="img/3.png" width="80%">
-                                    </div>
-                                    <div class="col-6">
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h2 class="fs-title">3. Selecciona el medio de transporte que usas: </h2>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="funkyradio">
-
-
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox1" />
-                                                <label for="checkbox1">Auto</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox2" />
-                                                <label for="checkbox2">Taxi</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox3" />
-                                                <label for="checkbox3">Motocicleta</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox4" />
-                                                <label for="checkbox4">Bicileta</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox5" />
-                                                <label for="checkbox5">Scooter</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox6" />
-                                                <label for="checkbox6">Transporte publico</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="checkbox" name="checkbox" id="checkbox6" />
-                                                <label for="checkbox7">Ninguno</label>
-                                            </div>        
-                                            
-                                        </div>
-                                    </div>
+                                <div class="col-12">
+                                    <?php questionThree($language); ?>
                                 </div>
-
-
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Siguiente"/>
-                            <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
-                        </fieldset>
-
-                        <fieldset>
-                            <div class="form-card">
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <img src="img/4.png" width="60%">
-                                    </div>
-                                    <div class="col-6">
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h2 class="fs-title">4. Cantidad de vuelos que realizas al año:</h2>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="funkyradio">
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio1"/>
-                                                <label for="radio1">Menos de 2</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio2" />
-                                                <label for="radio2">Entre 2 a 5 </label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio2" />
-                                                <label for="radio2">Entre 5 a 7 </label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio3" />
-                                                <label for="radio3">Mas 7</label>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <input type="button" name="next" class="next action-button" value="Siguiente"/>
-                        <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
-
+                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['next']; ?>"/>
+                            <input type="button" name="previous" class="previous action-button-previous" value="<?php echo $buttons[$language]['previous']; ?>"/>
                         </fieldset> 
-                        
+
+                        <fieldset>
+                            <div class="form-card">
+                                <div class="col-12">
+                                    <?php questionFour($language); ?>
+                                </div>
+                            </div>
+                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['next']; ?>"/>
+                            <input type="button" name="previous" class="previous action-button-previous" value="<?php echo $buttons[$language]['previous']; ?>"/>
+                        </fieldset>
                         
                         <fieldset>
                             <div class="form-card">
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="img/5.png" width="60%">
+                                <div class="col-12">
+                                    <?php questionFive($language); ?>
                                 </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h2 class="fs-title">5. Cuantas veces a la semana consumes:</h2>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h5>a) Carne roja</h5>
-                                        </div>
-                                    </div>
-                                    
-            
-                                    <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="2" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">2 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="3" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">3 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="4" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">4 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="5" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">5 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="6" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">6 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="7" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">7 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="8" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">8 <!--v-if--></div>
-
-                                            </label>
-
-                                <div class="row">
-                                        <div class="col-7">
-                                            <h5>b) Comida vegetariana</h5>
-                                        </div>
-                                    </div>
-                                    
-            
-                                    <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="2" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">2 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="3" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">3 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="4" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">4 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="5" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">5 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="6" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">6 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="7" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">7 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="8" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">8 <!--v-if--></div>
-
-                                            </label>
-                                 
-                                 
-                                </div>
-
                             </div>
-
-
-
-
-                            </div>
-                            <input type="button" name="next" class="next action-button" value="Finalizar"/>
-                            <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
-                        </fieldset>                       
-
-
+                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['result']; ?>"/>
+                            <input type="button" name="previous" class="previous action-button-previous" value="<?php echo $buttons[$language]['previous']; ?>"/>
+                        </fieldset>
+                        
+                      
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
