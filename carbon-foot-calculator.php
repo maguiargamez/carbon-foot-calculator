@@ -33,6 +33,9 @@
       //Plugin
       wp_register_style('wizardcss', TEST_PLUGIN_URL."public/css/wizard.css");
       wp_enqueue_style('wizardcss');
+
+      wp_register_style('rounded-radio', TEST_PLUGIN_URL."public/css/rounded-radio.css");
+      wp_enqueue_style('rounded-radio');
    }
 
    // Add plugin scripts
@@ -48,6 +51,7 @@
       //Plugin
       wp_register_script( 'wizardjs', TEST_PLUGIN_URL."public/js/wizard.js");
       wp_enqueue_script('wizardjs');
+      
    }
 
    add_action('wp_enqueue_scripts', 'myPluginCss', 999);
@@ -55,29 +59,80 @@
 
    add_shortcode('carbon-foot', 'myForm');
 
-   function questionOne(){
-        return `
+   function questionOne($language="COL"){
+
+        $question= [
+            "COL" => "¿Cuantas personas más viven en tu casa?",
+            "MEX" => "¿Cuantas personas más viven en tu casa?",
+            "USA" => "How many other people live in your household?"            
+        ];
+
+        ?>
             <div class="row">
                 <div class="col-6">
-                    <img src="`.TEST_PLUGIN_URL.`public/images/1.png" width="80%">
+                    <img src="<?php echo TEST_PLUGIN_URL.'public/images/1.png'; ?>" width="80%">
                 </div>
                 <div class="col-6">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="fs-title">1. Cuantas personas más habitan en tu casa?</h2>
+                            <h2 class="fs-title">1. <?php echo $question[$language]; ?></h2>
                         </div>
                     </div>
-                    <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
+                    <div class="price-box">
 
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
+                    <div id="slider"></div>
 
-                                            </label>
+                    </div>
+                    <div class="options">                
+                        <?php
+                            for($i=1; $i<8; $i++){
+                                ?>
+                                <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">
+                                    <input type="radio" class="hidden peer" name="questionOne"  data-type="int" value="<?php echo $i; ?>" data-v-05d2fc82="">
+                                    <div class="flex items-center justify-between cursor-pointer square"  data-v-05d2fc82=""><?php echo $i; ?></div>
+                                </label>
+                                <?php
+                            }
+                        ?>
+                    </div>                    
                 </div>
             </div>
-            
-        `;
+        <?php
    }
+
+   function questionTwo($language="COL"){
+
+    $question= [
+        "COL" => "¿Cuánto pagas al mes por los servicios públicos? ($ COP)",
+        "MEX" => "¿Cuánto pagas al mes por los servicios públicos? ($ COP)",
+        "USA" => "How many other people live in your household?"            
+    ];
+
+    ?>
+        <div class="row">
+            <div class="col-6">
+                <img src="<?php echo TEST_PLUGIN_URL.'public/images/2.png'; ?>" width="80%">
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="fs-title">2. <?php echo $question[$language]; ?></h2>
+                    </div>
+                </div>
+
+                <label class="fieldlabels">Electricidad: </label> <output id="outputElect">0</output> $ COP  <br>
+               
+                <input type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputElect').value = this.value">
+                    
+                <label class="fieldlabels">Gas: </label> <output id="outputGas">0</output> $ COP  <br>
+               
+                <input type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputGas').value = this.value"> 
+
+                
+            </div>
+        </div>
+    <?php
+}
 
    function myForm($atts){
 
@@ -87,9 +142,9 @@
         <div class="row justify-content-center">
             <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 text-center p-0 mt-3 mb-2">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <h2 id="heading">Mide tu impacto ambiental</h2>
+                    <!-- <h2 id="heading">Mide tu impacto ambiental</h2> -->
     
-                    <form id="msform">
+                    <form id="msform" class="form-pricing">
     
                         <ul id="progressbar">
                             <li class="active" id="house"><strong>Vivienda</strong></li>
@@ -104,125 +159,25 @@
        
                         <fieldset>
                             <div class="form-card">
-                            <div class="col-12">
-                            <div class="row">
-                            
-
-                                <div class="col-6">
-                                    <img src="<?php echo TEST_PLUGIN_URL.'public/images/1.png'; ?>" width="80%">
+                                <div class="col-12">
+                                    <?php questionOne(); ?>
                                 </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h2 class="fs-title">1. Cuantas personas más habitan en tu casa?</h2>
-                                        </div>
-                                    </div>
-                                    
-            
-                                                                                <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="1" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">1 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="2" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">2 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="3" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">3 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="4" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">4 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="5" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">5 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="6" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">6 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="7" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">7 <!--v-if--></div>
-
-                                            </label>
-                                                                                        <label class="relative mb-6 lg:mb-0" data-v-05d2fc82="">                                    
-                                                <input class="hidden peer" name="adults-n" type="radio" data-type="int" value="8" data-v-05d2fc82="">
-
-                                                <div class="flex items-center justify-between cursor-pointer square  " id="adults-n" data-v-05d2fc82="">8 <!--v-if--></div>
-
-                                            </label>
-
-                                </div>
-
-                            
-                            </div>
-                            </div>
-
-
-
                             </div>
                             <input type="button" name="next" class="next action-button" value="Siguiente"/>
                         </fieldset>
 
-                        
-                    
                         <fieldset>
                             <div class="form-card">
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <img src="img/2.png" width="50%" class="text-center">
-                                    </div>
-                                    <div class="col-6">
-
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h2 class="fs-title">2. ¿Cuánto pagas al mes por los servicios públicos?</h2>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="funkyradio">
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio1" />
-                                                <label for="radio1">Menos de 3,000.00 MXN</label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio2" checked/>
-                                                <label for="radio2">Mas de 3,000.00 MXN y menos de 5,000.00 MXN </label>
-                                            </div>
-                                            <div class="funkyradio-primary">
-                                                <input type="radio" name="radio" id="radio3" />
-                                                <label for="radio3">Mas de 5,000.00 MXN</label>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
+                                <div class="col-12">
+                                    <?php questionTwo(); ?>
                                 </div>
-
                             </div>
-
-
                             <input type="button" name="next" class="next action-button" value="Siguiente"/>
-                        <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
+                            <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
+                        </fieldset> 
 
-                        </fieldset>
+                    
+
 
 
                         <fieldset>
