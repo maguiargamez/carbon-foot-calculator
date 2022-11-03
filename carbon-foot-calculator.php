@@ -36,6 +36,9 @@
 
       wp_register_style('rounded-radio', TEST_PLUGIN_URL."public/css/rounded-radio.css");
       wp_enqueue_style('rounded-radio');
+
+      wp_register_style('circular-meter', TEST_PLUGIN_URL."public/css/circular-meter.css");
+      wp_enqueue_style('circular-meter');
    }
 
    // Add plugin scripts
@@ -51,6 +54,12 @@
       //Plugin
       wp_register_script( 'wizardjs', TEST_PLUGIN_URL."public/js/wizard.js");
       wp_enqueue_script('wizardjs');
+
+      wp_register_script( 'raphaeljs', TEST_PLUGIN_URL."public/js/raphael.min.js");
+      wp_enqueue_script('raphaeljs');    
+
+      wp_register_script( 'justgagejs', TEST_PLUGIN_URL."public/js/justgage.js");
+      wp_enqueue_script('justgagejs'); 
       
    }
 
@@ -427,6 +436,7 @@
                         </fieldset>                       
 
 
+
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
@@ -436,10 +446,13 @@
                                 </div>
                                 <br><br>
 
-                                <h2 class="col-12 text-center">Tu huella de carbono anual es de:</h2>
+                                <h2 class="col-12 text-center">Tu huella de carbono anual es dee:</h2>
                                 <br>
                                 <div class="row text-center">
                                     <div class="col-12">
+                                    
+                                        <div id="gauge"></div>
+
                                         <h1 text-center"><strong>1.3 toneladas</strong></h2>
                                     </div>
                                 </div>
