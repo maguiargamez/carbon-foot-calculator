@@ -45,9 +45,9 @@ p {
     display: none;
 }
 
-#msform input, #msform textarea {
+input[type="range"] {
     padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #FFFF;
     border-radius: 0px;
     margin-bottom: 25px;
     margin-top: 2px;
@@ -55,10 +55,28 @@ p {
     box-sizing: border-box;
     font-family: montserrat;
     color: #2C3E50;
-    background-color: #ECEFF1;
+    background-color: #FFF;
     font-size: 16px;
     letter-spacing: 1px;
 }
+
+#msform input, #msform textarea {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #FFF;
+    border-radius: 0px;
+    margin-bottom: 25px;
+    margin-top: 2px;
+    /*width: 100%;*/
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    background-color: #FFF;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+
+
 
 #msform input:focus, #msform textarea:focus {
     -moz-box-shadow: none !important;
