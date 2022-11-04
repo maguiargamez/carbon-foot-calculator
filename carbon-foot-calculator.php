@@ -55,6 +55,9 @@
       wp_register_script( 'wizardjs', TEST_PLUGIN_URL."public/js/wizard.js");
       wp_enqueue_script('wizardjs');
 
+      wp_register_script( 'calculatorco2js', TEST_PLUGIN_URL."public/js/calculator-co2.js");
+      wp_enqueue_script('calculatorco2js'); 
+
       wp_register_script( 'raphaeljs', TEST_PLUGIN_URL."public/js/raphael.min.js");
       wp_enqueue_script('raphaeljs');    
 
@@ -184,11 +187,11 @@
 
                 <label class="fieldlabels"><?php echo $questionOne[$language]; ?>: </label> <output id="outputElect">0</output> <?php echo $money[$language] ?>  <br>
                
-                <input name="questionTwoElectricity" type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputElect').value = this.value">
+                <input id="questionTwoElectricity" name="questionTwoElectricity" type="range" value="0" min="0" max="1000000" oninput="document.getElementById('outputElect').value = this.value">
                     
                 <label class="fieldlabels"><?php echo $questionTwo[$language]; ?>: </label> <output id="outputGas">0</output> <?php echo $money[$language] ?>   <br>
                
-                <input name="questionTwoGas" type="range" value="0" min="0" max="1000" oninput="document.getElementById('outputGas').value = this.value"> 
+                <input id="questionTwoGas" name="questionTwoGas" type="range" value="0" min="0" max="1000000" oninput="document.getElementById('outputGas').value = this.value"> 
 
                 
             </div>
@@ -449,25 +452,12 @@
                                     <?php questionFive($language); ?>
                                 </div>
                             </div>
-<<<<<<< HEAD
-
-
-
-
-                            </div>
-                            <input type="button" name="next" class="next action-button" value="Finalizar"/>
-                            <input type="button" name="previous" class="previous action-button-previous" value="Regresar"/>
-                        </fieldset>                       
-
-
-
-=======
-                            <input type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['result']; ?>"/>
+                            <input onclick="resultsco2()" type="button" name="next" class="next action-button" value="<?php echo $buttons[$language]['result']; ?>"/>
                             <input type="button" name="previous" class="previous action-button-previous" value="<?php echo $buttons[$language]['previous']; ?>"/>
-                        </fieldset>
+                        </fieldset>   
                         
                       
->>>>>>> 6c9478bde3d01c07b0e876524a1b9f77dd49969e
+
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
